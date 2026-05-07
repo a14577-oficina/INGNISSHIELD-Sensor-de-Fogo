@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  sensor-fogo:
+    container_name: sensor_fogo_rural
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - .:/app
+
+    working_dir: /app
+
+    stdin_open: true
+    tty: true
+
+    restart: unless-stopped
+
+    environment:
+      - SENSOR_NAME=SensorFogoRural
+      - ALERTA_TEMP=60
+      - LOCALIZACAO=HabitacaoRural
+
+    command: python main.py
